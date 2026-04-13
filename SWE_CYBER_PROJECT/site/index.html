@@ -1,31 +1,70 @@
 <!DOCTYPE html>
+<html lang="en">
 
-<html lang="eng">
-    <title>
-        Data Breach
-    </title>
-    <style>
-        body{background-color:cornflowerblue;}
-        body{font-size:40px}
-        body{font-family: Verdana, Geneva, Tahoma, sans-serif;}
-    </style>
-    <header><div align = "center"><b> Click below to see if you have had your data breached</b></div> </header> 
+<head>
+  <title>Data Breach</title>
 
-    <div style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
-        
-        <input 
-        type="text" 
-        placeholder="Enter your email"
-        style="padding:10px; width:350px; margin-bottom:10px; font-size:16px;"
-        >
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
 
-        <button type="button" onclick="doSystem()" class= "data" style= "font-size: xx-large" title="Generate data" >
-        SEARCH YOUR EMAIL
-      </button>
-      </div>
-    
-    <div id="result" style="margin-top:30px; text-align:center;">
-        <h3>Results will appear here</h3>
-    </div>
-    
+  <style>
+    body {
+      background-color: cornflowerblue;
+      font-size: 40px;
+      font-family: 'Poppins', sans-serif;
+      text-align: center;
+    }
+
+    h1 {
+      font-weight: 800;
+      margin-bottom: 20px;
+    }
+
+    h3 {
+      font-weight: 600;
+    }
+
+    input {
+      padding: 12px;
+      width: 350px;
+      margin-bottom: 10px;
+      font-size: 16px;
+      border-radius: 8px;
+      border: none;
+    }
+
+    button {
+      font-size: 24px;
+      font-family: 'Poppins', sans-serif;
+      font-weight: 600;
+      padding: 10px 20px;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+    }
+
+    button:hover {
+      opacity: 0.9;
+    }
+  </style>
+</head>
+
+<body>
+
+  <h2>Click below to see if you have had your data breached</h2>
+
+  <div style="display: flex; flex-direction: column; align-items: center;">
+    <input type="text" placeholder="Enter your email">
+
+    <button type="button" onclick="doSystem()">
+      SEARCH YOUR EMAIL
+    </button>
+  </div>
+
+  <div id="result" style="margin-top:30px;">
+    <h3>Results will appear here</h3>
+  </div>
+
+</body>
+
 </html>
