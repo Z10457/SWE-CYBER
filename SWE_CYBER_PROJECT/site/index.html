@@ -11,10 +11,22 @@
     </style>
     <header><div align = "center"><b> Click below to see if you have had your data breached</b></div> </header> 
 
-    <div div style="display: flex; justify-content: center; align-items: center;">
+    <div style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
+        
+        <input 
+        type="text" 
+        placeholder="Enter your email"
+        style="padding:10px; width:350px; margin-bottom:10px; font-size:16px;"
+        >
+
         <button type="button" onclick="doSystem()" class= "data" style= "font-size: xx-large" title="Generate data" >
         SEARCH YOUR NAME
       </button>
       </div>
+    
+    <div id="result" style="margin-top:30px; text-align:center;">
+        <h2>Results will appear here</h2>
+        <p>Enter your name and click search to check for possible breaches.</p>
+    </div>
     
 </html>
