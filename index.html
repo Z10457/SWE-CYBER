@@ -14,7 +14,7 @@
             background: linear-gradient(135deg, #6a8fdc, #7b5dc9);
         }
 
-        /* 🔹 Top right button */
+        /* Top right button */
         .top-btn {
             position: absolute;
             top: 20px;
@@ -94,7 +94,7 @@
             opacity: 0.7;
         }
 
-        /* 🔹 Popup background */
+        /* Popup background */
         .modal {
             display: none;
             position: fixed;
@@ -107,7 +107,7 @@
             align-items: center;
         }
 
-        /* 🔹 Popup box */
+        /* Popup box */
         .modal-content {
             background: white;
             padding: 30px;
@@ -124,7 +124,7 @@
             border: 1px solid #ddd;
         }
 
-        /* 🔹 Close button */
+        /* Close button */
         .close {
             position: absolute;
             top: 10px;
@@ -138,12 +138,12 @@
 
 <body>
 
-    <!-- 🔹 Top button -->
+    <!-- Top button -->
     <div class="top-btn">
         <button onclick="openModal()">Sign up for alerts</button>
     </div>
 
-    <!-- 🔹 Main card -->
+    <!-- Main card -->
     <div class="container">
         <h1>Check if your data was breached</h1>
 
@@ -157,7 +157,7 @@
         </div>
     </div>
 
-    <!-- 🔹 Popup -->
+    <!-- Popup -->
     <div class="modal" id="modal" onclick="outsideClick(event)">
         <div class="modal-content">
             <span class="close" onclick="closeModal()">&times;</span>
@@ -174,7 +174,7 @@
     <script>
         function checkEmail() {
             document.getElementById("result").innerText =
-                "No breaches found (demo)";
+                "No breaches found";
         }
 
         function openModal() {
@@ -186,7 +186,7 @@
         }
 
         function signup() {
-            alert("You are now signed up for alerts (demo)");
+            alert("You are now signed up for alerts");
             closeModal();
         }
 
