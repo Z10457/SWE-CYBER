@@ -1,70 +1,101 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <title>Data Breach</title>
+    <title>Data Breach Checker</title>
 
-  <!-- Google Font -->
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #6a8fdc, #7b5dc9);
+        }
 
-  <style>
-    body {
-      background-color: cornflowerblue;
-      font-size: 40px;
-      font-family: 'Poppins', sans-serif;
-      text-align: center;
-    }
+        .container {
+            background: rgba(255, 255, 255, 0.12);
+            backdrop-filter: blur(15px);
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            padding: 40px;
+            border-radius: 20px;
+            text-align: center;
+            width: 350px;
+            color: white;
+        }
 
-    h1 {
-      font-weight: 800;
-      margin-bottom: 20px;
-    }
+        h1 {
+            font-size: 24px;
+            margin-bottom: 25px;
+        }
 
-    h3 {
-      font-weight: 600;
-    }
+        .form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+        }
 
-    input {
-      padding: 12px;
-      width: 350px;
-      margin-bottom: 10px;
-      font-size: 16px;
-      border-radius: 8px;
-      border: none;
-    }
+        input {
+            width: 100%;
+            padding: 12px;
+            border-radius: 8px;
+            border: none;
+            font-size: 14px;
+            text-align: center;
+        }
 
-    button {
-      font-size: 24px;
-      font-family: 'Poppins', sans-serif;
-      font-weight: 600;
-      padding: 10px 20px;
-      border-radius: 8px;
-      border: none;
-      cursor: pointer;
-    }
+        input:focus {
+            outline: none;
+            box-shadow: 0 0 10px rgba(255,255,255,0.4);
+        }
 
-    button:hover {
-      opacity: 0.9;
-    }
-  </style>
+        input::placeholder {
+            color: #999;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            border-radius: 10px;
+            border: none;
+            background: black;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        button:hover {
+            transform: scale(1.03);
+            opacity: 0.9;
+        }
+
+        button:active {
+            transform: scale(0.98);
+        }
+
+        #result {
+            margin-top: 20px;
+            font-size: 14px;
+            opacity: 0.7;
+        }
+    </style>
 </head>
 
 <body>
+    <div class="container">
+        <h1>Check if your data was breached</h1>
 
-  <h2>Click below to see if you have had your data breached</h2>
+        <div class="form">
+            <input type="text" placeholder="Enter your email">
+            <button>Search</button>
+        </div>
 
-  <div style="display: flex; flex-direction: column; align-items: center;">
-    <input type="text" placeholder="Enter your email">
-
-    <button type="button" onclick="doSystem()">
-      SEARCH YOUR EMAIL
-    </button>
-  </div>
-
-  <div id="result" style="margin-top:30px;">
-    <h3>Results will appear here</h3>
-  </div>
-
+        <div id="result">
+            Results will appear here
+        </div>
+    </div>
 </body>
-
 </html>
