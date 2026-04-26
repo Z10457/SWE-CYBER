@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Data Breach Checker</title>
 
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
 
     <style>
@@ -14,7 +15,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            font-family: Arial, sans-serif;
+            font-family: 'Poppins', sans-serif;
             background: linear-gradient(135deg, #6a8fdc, #7b5dc9);
         }
 
@@ -42,6 +43,7 @@
             text-align: center;
             width: 350px;
             color: white;
+            border: 1px solid rgba(255,255,255,0.2);
         }
 
         h1 {
@@ -78,12 +80,46 @@
             color: white;
             font-size: 16px;
             cursor: pointer;
+            transition: 0.2s;
+        }
+
+        button:hover {
+            opacity: 0.9;
+            transform: scale(1.02);
         }
 
         #result {
-            margin-top: 20px;
-            font-size: 14px;
-            white-space: pre-line;
+            margin-top: 25px;
+            width: 100%;
+        }
+
+        .result-card {
+            padding: 20px;
+            border-radius: 15px;
+            background: rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(12px);
+            text-align: left;
+            line-height: 1.7;
+            border-left: 5px solid;
+        }
+
+        .result-title {
+            font-weight: 700;
+            font-size: 20px;
+            margin-bottom: 12px;
+        }
+
+        .label {
+            font-weight: 600;
+            color: #ddd;
+        }
+
+        .value {
+            color: white;
+        }
+
+        .risk {
+            font-weight: 700;
         }
 
         .modal {
@@ -128,12 +164,7 @@
         <h1>Check if your data was breached</h1>
 
         <div class="form">
-            <input
-                id="emailInput"
-                type="text"
-                placeholder="Enter your email"
-            >
-
+            <input id="emailInput" type="text" placeholder="Enter your email">
             <button onclick="checkEmail()">Search</button>
         </div>
 
@@ -149,11 +180,7 @@
             <h3>Sign up for breach alerts</h3>
             <p>Get notified if your data appears in future breaches.</p>
 
-            <input
-                id="alertEmailInput"
-                type="email"
-                placeholder="Enter your email"
-            >
+            <input id="alertEmailInput" type="email" placeholder="Enter your email">
 
             <br><br>
 
@@ -163,29 +190,27 @@
 
     <script>
         const supabaseUrl = "https://brezjswsvwsqqexliiqm.supabase.co";
-
         const supabaseKey = "sb_publishable_GWh_LmIF1cmijNwNyQBxIw_ishu3Hf8";
 
-        const supabaseClient = supabase.createClient(
-            supabaseUrl,
-            supabaseKey
-        );
+        const supabaseClient = supabase.createClient(supabaseUrl, supabaseKey);
+
+        function getRiskColor(level) {
+            if (level === "High") return "#ff4d4d";     // red
+            if (level === "Medium") return "#ff9900";   // orange
+            if (level === "Low") return "#ffd633";      // yellow
+            return "#ffffff";
+        }
 
         async function checkEmail() {
-            const email = document
-                .getElementById("emailInput")
-                .value
-                .trim()
-                .toLowerCase();
-
+            const email = document.getElementById("emailInput").value.trim().toLowerCase();
             const result = document.getElementById("result");
 
             if (email === "") {
-                result.innerText = "Please enter an email.";
+                result.innerHTML = "<p>Please enter an email.</p>";
                 return;
             }
 
-            result.innerText = "Checking database...";
+            result.innerHTML = "<p>Checking database...</p>";
 
             const { data, error } = await supabaseClient
                 .from("breach_records")
@@ -193,22 +218,33 @@
                 .eq("email", email);
 
             if (error) {
-                result.innerText = "Error: " + error.message;
-                console.log(error);
+                result.innerHTML = "<p>Error: " + error.message + "</p>";
                 return;
             }
 
             if (data.length > 0) {
                 const breach = data[0];
+                const color = getRiskColor(breach.risk_level);
 
-                result.innerText =
-                    "⚠ Breach Found\n\n" +
-                    "Breach: " + breach.breach_name + "\n" +
-                    "Year: " + breach.breach_year + "\n" +
-                    "Risk Level: " + breach.risk_level + "\n" +
-                    "Description: " + breach.description;
+                result.innerHTML = `
+                    <div class="result-card" style="border-left-color:${color}">
+                        <div class="result-title" style="color:${color}">⚠ Breach Found</div>
+
+                        <div><span class="label">Breach:</span> <span class="value">${breach.breach_name}</span></div>
+                        <div><span class="label">Year:</span> <span class="value">${breach.breach_year}</span></div>
+                        <div><span class="label">Risk Level:</span> 
+                            <span class="risk" style="color:${color}">${breach.risk_level}</span>
+                        </div>
+                        <div><span class="label">Description:</span> <span class="value">${breach.description}</span></div>
+                    </div>
+                `;
             } else {
-                result.innerText = "No breaches found.";
+                result.innerHTML = `
+                    <div class="result-card" style="border-left-color:#4caf50">
+                        <div class="result-title" style="color:#4caf50">✅ No Breaches Found</div>
+                        <div>Your email is safe (for now).</div>
+                    </div>
+                `;
             }
         }
 
@@ -227,11 +263,7 @@
         }
 
         async function signup() {
-            const email = document
-                .getElementById("alertEmailInput")
-                .value
-                .trim()
-                .toLowerCase();
+            const email = document.getElementById("alertEmailInput").value.trim().toLowerCase();
 
             if (email === "") {
                 alert("Please enter an email.");
@@ -240,15 +272,10 @@
 
             const { error } = await supabaseClient
                 .from("alert_signups")
-                .insert([
-                    {
-                        email: email
-                    }
-                ]);
+                .insert([{ email: email }]);
 
             if (error) {
                 alert("Error: " + error.message);
-                console.log(error);
                 return;
             }
 
